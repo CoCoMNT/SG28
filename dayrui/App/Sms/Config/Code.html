@@ -1,0 +1,23 @@
+
+{if $member}
+<a href="javascript:dr_iframe_show('聊天窗口', '/index.php?s=sms');">私信(<span class="my_sms_num">0</span>)</a>
+<a href="{dr_member_url('sms/home/index')}" target="_blank">私信(<span class="my_sms_num">0</span>)</a>
+<audio src="{dr_get_app_css('sms')}new.mp3" style="display:none" id="dr_sms_audio"></audio>
+<script>
+    $(function(){
+        $.ajax({type: "GET",dataType:"json", url: "/index.php?s=sms&c=api&m=nums",
+            success: function(json) {
+                if (json.code == 1) {
+                    document.getElementById('dr_sms_audio').play();
+                    $('.my_sms_num').html(json.msg);
+                } else {
+                    $('.my_sms_num').html('0');
+                }
+            },
+            error: function(HttpRequest, ajaxOptions, thrownError) {
+                $('.my_sms_num').html('0');
+            }
+        });
+    });
+</script>
+{/if}

@@ -1,0 +1,1 @@
+SELECT * FROM `dr_member` LEFT JOIN `dr_member_data` ON `dr_member`.`id`=`dr_member_data`.`id` ORDER BY `dr_member`.`id` desc  LIMIT 10

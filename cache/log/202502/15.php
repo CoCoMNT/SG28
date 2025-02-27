@@ -1,0 +1,2 @@
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');?>
+{"ip":"111.55.74.73","uid":0,"url":"https://cocotgbot.cn/admina4f4f49f23e7.php?c=login&go=&","time":1739556148,"param":[],"action":"登录后台成功","username":"SG28"}

@@ -1,0 +1,42 @@
+{template "header.html"}
+
+<form class="form-horizontal" role="form" id="myform">
+    {$form}
+    <div class="form-body">
+        <div class="form-group">
+            <label class="col-xs-2 control-label ">{dr_lang('中文名')}</label>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" name="fname">
+                <span class="help-block"> 控制器中文命名 </span>
+            </div>
+        </div>
+        <div class="form-group" id="dr_row_name">
+            <label class="col-xs-2 control-label ">{dr_lang('文件名')}</label>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" id="dr_name" name="name">
+                <span class="help-block"> {dr_lang('由a-z的字母开头，可以包含数字或_符号')} </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label ">{dr_lang('存储路径')}</label>
+            <div class="col-xs-8">
+                <div class="form-control-static">{$path}</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label ">{dr_lang('模板格式')}</label>
+            <div class="col-xs-8">
+                <div class="mt-radio-inline">
+                    <label class="mt-radio mt-radio-outline">
+                        <input type="radio" name="tpl" checked value="2"> 共享模板：系统会调用公共的表单模板 <span></span>
+                    </label>
+                    <label class="mt-radio mt-radio-outline">
+                        <input type="radio" name="tpl" value="1"> 独立模板：系统会单独创建对应的表单模板<span></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+{template "footer.html"}

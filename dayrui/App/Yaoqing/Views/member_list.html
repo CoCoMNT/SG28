@@ -1,0 +1,108 @@
+{template "header.html"}
+
+
+
+
+<div class="row table-search-tool">
+<form action="{SELF}" method="get">
+    {dr_form_search_hidden()}
+    <div class="col-md-12 col-sm-12">
+        <label>
+            <select name="field" class="form-control">
+                {loop $field $t}
+                {if $t.ismain}
+                <option value="{$t.fieldname}" {if $param.field==$t.fieldname}selected{/if}>{$t.name}</option>
+                {/if}
+                {/loop}
+            </select>
+        </label>
+        <label><i class="fa fa-caret-right"></i></label>
+        <label><input type="text" class="form-control" placeholder="" value="{$param['keyword']}" name="keyword" /></label>
+    </div>
+
+
+    <div class="col-md-12 col-sm-12">
+        <label><button type="submit" class="btn blue btn-sm onloading" name="submit" > <i class="fa fa-search"></i> {dr_lang('搜索')}</button></label>
+
+    </div>
+</form>
+</div>
+
+
+
+<form class="form-horizontal" role="form" id="myform">
+    {dr_form_hidden()}
+    <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover table-checkable dataTable">
+            <thead>
+            <tr class="heading">
+                {if $ci->_is_admin_auth('del')}
+                <th class="myselect">
+                    <label class="mt-table mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                        <input type="checkbox" class="group-checkable" data-set=".checkboxes" />
+                        <span></span>
+                    </label>
+                </th>
+                {/if}
+                <th width="180" class="{dr_sorting('username')}" name="username">{dr_lang('账号')}</th>
+                <th width="180" class="{dr_sorting('pusername')}" name="pusername">{dr_lang('邀请人')}</th>
+                <th width="180" class="{dr_sorting('money')}" name="money">{dr_lang('金额')}</th>
+                <th width="100" class="{dr_sorting('czfx')}" name="czfx">{dr_lang('充值返现')}</th>
+                <th width="170" class="{dr_sorting('inputtime')}" name="inputtime">{dr_lang('注册时间')}</th>
+                <th>{dr_lang('操作')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {loop $list $t}
+            <tr class="odd gradeX" id="dr_row_{$t.id}">
+                {if $ci->_is_admin_auth('del')}
+                <td class="myselect">
+                    <label class="mt-table mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                        <input type="checkbox" class="checkboxes" name="ids[]" value="{$t.id}" />
+                        <span></span>
+                    </label>
+                </td>
+                {/if}
+
+                {if is_file(dr_get_app_dir(APP_DIR).'/Views/member_field.ini')}
+                <?php $fname = file_get_contents(dr_get_app_dir(APP_DIR).'/Views/member_field.ini');?>
+                <td>{php $m=dr_member_info($t.uid);echo $m[$fname]? $m[$fname]: $t.username;}</td>
+                <td>{php $m=dr_member_info($t.puid);echo $m[$fname]? $m[$fname]: $t.username;}</td>
+                {else}
+                <td>{dr_list_function('author', $t.username)}</td>
+                <td>{dr_list_function('author', $t.pusername)}</td>
+                {/if}
+
+                <td>{dr_price_value($t.money)}</td>
+                <td>{$t.czfx}%</td>
+                <td>{dr_list_function('date', $t.inputtime)}</td>
+                <td>
+                    {if $ci->_is_admin_auth('edit')}
+                    <label><a href="{dr_url($uriprefix.'/edit', ['id'=>$t.id])}" class="btn btn-xs green"> <i class="fa fa-edit"></i> {dr_lang('修改')}</a></label>
+                    {/if}
+                </td>
+            </tr>
+            {/loop}
+            </tbody>
+        </table>
+    </div>
+
+         <div class="row fc-list-footer table-checkable ">
+             <div class="col-md-5 fc-list-select">
+                {if $ci->_is_admin_auth('del')}
+                <label class="mt-table mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                    <input type="checkbox" class="group-checkable" data-set=".checkboxes" />
+                    <span></span>
+                </label>
+                <button type="button" onclick="dr_ajax_option('{dr_url($uriprefix.'/del')}', '{dr_lang('你确定要删除它们吗？')}', 1)" class="btn red btn-sm"> <i class="fa fa-trash"></i> {dr_lang('删除')}</button>
+                {/if}
+
+             </div>
+             <div class="col-md-7 fc-list-page">
+                 {$mypages}
+             </div>
+         </div>
+</form>
+
+
+{template "footer.html"}

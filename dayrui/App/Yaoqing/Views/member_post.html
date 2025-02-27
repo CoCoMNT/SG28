@@ -1,0 +1,73 @@
+{template "header.html"}
+<div class="note note-danger">
+    <p>用户关系</p>
+</div>
+
+<form action="" class="form-horizontal" method="post" name="myform" id="myform">
+    {$form}
+    <div class="portlet bordered light ">
+        <div class="portlet-title">
+            <div class="caption">
+                <span class="caption-subject font-green-sharp">
+                    {dr_lang('用户关系')}
+                </span>
+            </div>
+            <div class="actions">
+                <div class="btn-group">
+                    <a class="btn" href="{$reply_url}"> <i class="fa fa-mail-reply"></i> {dr_lang('返回')}</a>
+                </div>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="form-body">
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">{dr_lang('账号')}</label>
+                    <div class="col-md-9">
+                        <label><input class="form-control " type="text" name="data[username]" value="{$username}" ></label>
+                        <div class="help-block">  </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">{dr_lang('父级账号')}</label>
+                    <div class="col-md-9">
+                        <label><input class="form-control " type="text" name="data[pusername]" value="{$pusername}" ></label>
+                        <div class="help-block">  </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">{dr_lang('充值返现比例')}</label>
+                    <div class="col-md-9">
+                        <div class="input-inline input-medium">
+                            <div class="input-group">
+                                <input type="text"  name="data[czfx]" value="{$czfx}" class="form-control" placeholder="">
+                                <span class="input-group-addon">
+                                                                %
+                                                            </span></div>
+                        </div>
+                        <div class="help-block">  </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="portlet-body form myfooter" id="mybottom">
+        <div class="form-actions text-center">
+            <button type="button" onclick="dr_ajax_submit('{dr_now_url()}', 'myform', '2000')" class="btn green"> <i class="fa fa-save"></i> {dr_lang('保存内容')}</button>
+            <button type="button" onclick="dr_ajax_submit('{dr_now_url()}', 'myform', '2000', '{$reply_url}')" class="btn yellow"> <i class="fa fa-mail-reply-all"></i> {dr_lang('保存并返回')}</button>
+
+        </div>
+    </div>
+</form>
+
+
+{template "footer.html"}

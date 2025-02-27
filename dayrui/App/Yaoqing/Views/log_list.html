@@ -1,0 +1,97 @@
+{template "header.html"}
+
+
+<div class="row table-search-tool">
+<form action="{SELF}" method="get">
+    {dr_form_search_hidden()}
+    <div class="col-md-12 col-sm-12">
+        <label>
+            <select name="field" class="form-control">
+                {loop $field $t}
+                {if $t.ismain}
+                <option value="{$t.fieldname}" {if $param.field==$t.fieldname}selected{/if}>{$t.name}</option>
+                {/if}
+                {/loop}
+            </select>
+        </label>
+        <label><i class="fa fa-caret-right"></i></label>
+        <label><input type="text" class="form-control" placeholder="" value="{$param['keyword']}" name="keyword" /></label>
+    </div>
+
+
+    <div class="col-md-12 col-sm-12">
+        <label><button type="submit" class="btn blue btn-sm onloading" name="submit" > <i class="fa fa-search"></i> {dr_lang('搜索')}</button></label>
+
+    </div>
+</form>
+</div>
+
+
+
+<form class="form-horizontal" role="form" id="myform">
+    {dr_form_hidden()}
+    <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover table-checkable dataTable">
+            <thead>
+            <tr class="heading">
+                {if $ci->_is_admin_auth('del')}
+                <th class="myselect">
+                    <label class="mt-table mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                        <input type="checkbox" class="group-checkable" data-set=".checkboxes" />
+                        <span></span>
+                    </label>
+                </th>
+                {/if}
+                <th width="180" class="{dr_sorting('username')}" name="username">{dr_lang('账号')}</th>
+                <th width="180" class="{dr_sorting('pusername')}" name="pusername">{dr_lang('收益人')}</th>
+                <th width="180" class="{dr_sorting('money')}" name="money">{dr_lang('返现')}</th>
+                <th width="170" class="{dr_sorting('inputtime')}" name="inputtime">{dr_lang('收益时间')}</th>
+                <th>{dr_lang('说明')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {loop $list $t}
+            <tr class="odd gradeX" id="dr_row_{$t.id}">
+                {if $ci->_is_admin_auth('del')}
+                <td class="myselect">
+                    <label class="mt-table mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                        <input type="checkbox" class="checkboxes" name="ids[]" value="{$t.id}" />
+                        <span></span>
+                    </label>
+                </td>
+                {/if}
+                <td>{dr_list_function('author', $t.username)}</td>
+                <td>{dr_list_function('author', $t.pusername)}</td>
+                <td>{dr_price_value($t.money)}</td>
+                <td>{dr_list_function('date', $t.inputtime)}</td>
+                <td>
+                    <a onclick="dr_show_info('{$t.content}')">{dr_strcut($t.content, 80)}</a>
+                </td>
+            </tr>
+            {/loop}
+            </tbody>
+        </table>
+    </div>
+
+         <div class="row fc-list-footer table-checkable ">
+             <div class="col-md-5 fc-list-select">
+                <label class="mt-table mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                    <input type="checkbox" class="group-checkable" data-set=".checkboxes" />
+                    <span></span>
+                </label>
+                <button type="button" onclick="dr_ajax_option('{dr_url($uriprefix.'/del')}', '{dr_lang('你确定要删除它们吗？')}', 1)" class="btn red btn-sm"> <i class="fa fa-trash"></i> {dr_lang('删除')}</button>
+                 <!---
+                <button type="button" onclick="dr_ajax_option('{dr_url($uriprefix.'/status')}&tid=1', '{dr_lang('你确定要处理它们吗？')}', 1)" class="btn green btn-sm"> {dr_lang('打款成功')}</button>
+                <button type="button" onclick="dr_ajax_option('{dr_url($uriprefix.'/status')}&tid=2', '{dr_lang('你确定要处理它们吗？')}', 1)" class="btn yellow-crusta btn-sm">  {dr_lang('打款失败')}</button>
+                <button type="button" onclick="dr_ajax_option('{dr_url($uriprefix.'/status')}&tid=0', '{dr_lang('你确定要处理它们吗？')}', 1)" class="btn red btn-sm">  {dr_lang('未打款')}</button>
+                --->
+
+             </div>
+             <div class="col-md-7 fc-list-page">
+                 {$mypages}
+             </div>
+         </div>
+</form>
+
+
+{template "footer.html"}

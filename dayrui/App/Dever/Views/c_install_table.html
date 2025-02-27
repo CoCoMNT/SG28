@@ -1,0 +1,15 @@
+{template "header.html"}
+
+<form class="form-horizontal" role="form" id="myform">
+    {dr_form_hidden()}
+    <div class="form-body">
+        <div class="form-group">
+            <label class="col-xs-2  ">{dr_lang('表名称')}</label>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" value="{$table}" name="table">
+                <span class="help-block"> 确认当前控制器所绑定的表名称（不带前缀） </span>
+            </div>
+        </div>
+    </div>
+</form>
+{template "footer.html"}

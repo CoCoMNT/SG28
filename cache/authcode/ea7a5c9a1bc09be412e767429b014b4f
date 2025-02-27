@@ -1,0 +1,1 @@
+SELECT count(*) as total FROM `dr_app_sms_gx` WHERE `from_uid` = 2

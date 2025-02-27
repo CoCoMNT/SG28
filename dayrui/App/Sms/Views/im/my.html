@@ -1,0 +1,20 @@
+{loop $list $t}
+<li class="contacts-item  {if $t.from_uid==$uid}active{/if}" id="contacts-item-{$t.from_uid}">
+    <a class="contacts-link" href="javascript:dr_chat_show('{$t.from_uid}');">
+        <div class="avatar ">
+            <img src="{$t.avatar}">
+        </div>
+        <div class="contacts-content">
+            <div class="contacts-info">
+                <h6 class="chat-name text-truncate">{$t.name}</h6>
+                <div class="chat-time">{dr_fdate($t.inputtime)}</div>
+            </div>
+            <div class="contacts-texts">
+                <p class="text-truncate">{dr_clearhtml($t.content)}</p>
+                {if !$t.is_read}
+                <div class="badge badge-rounded badge-primary ml-1">未读</div>{/if}
+            </div>
+        </div>
+    </a>
+</li>
+{/loop}

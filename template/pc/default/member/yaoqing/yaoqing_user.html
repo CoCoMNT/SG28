@@ -1,0 +1,103 @@
+{template "mheader.html"}
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="portlet light ">
+            <div class="portlet-title tabbable-line">
+                <ul class="nav nav-tabs" style="float:left;">
+                    <li class="{if $tid=='index'}active{/if}">
+                        <a href="{dr_member_url(APP_DIR.'/home/index')}"> 邀请注册 </a>
+                    </li>
+                    <li class="{if $tid=='log'}active{/if}">
+                        <a href="{dr_member_url(APP_DIR.'/home/log')}"> 我的收益 </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="portlet-body  ">
+                <form action="" class="form-horizontal">
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"> 邀请注册地址 </label>
+                        <div class="col-md-9">
+                            <p class="form-control-static"> {dr_url('yaoqing/home/index', ['uid'=>$member.uid])} </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"> 邀请赠送{SITE_SCORE} </label>
+                        <div class="col-md-9">
+                            <p class="form-control-static"> {$yaoqing.score} </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"> 邀请赠送{SITE_EXPERIENCE} </label>
+                        <div class="col-md-9">
+                            <p class="form-control-static"> {$yaoqing.exp} </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"> 充值返现比例 </label>
+                        <div class="col-md-9">
+                            <p class="form-control-static"> {$yaoqing.czfx}% </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"> 累计返现收益 </label>
+                        <div class="col-md-9">
+                            <p class="form-control-static"> {dr_price_value($money_total)} 元</p>
+                        </div>
+                    </div>
+
+
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject"> 我邀请的用户</span>
+                </div>
+            </div>
+            <div class="portlet-body  ">
+                <table class="table table-striped table-bordered table-hover table-checkable dataTable">
+                    <thead>
+                    <tr class="heading">
+                        <th width="160" class="{dr_sorting('inputtime')}" name="inputtime">时间</th>
+                        <th width="200" class="{dr_sorting('username')}" name="username">账号</th>
+                        <th width="120" class="{dr_sorting('money')}" name="money">返现</th>
+                        <th>充值返现比例</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loop $list $t}
+                    <tr class="odd gradeX" id="dr_row_{$t.id}">
+                        <td>{dr_date($t.inputtime)}</td>
+                        <td>{$t.username}</td>
+                        <td>{dr_price_value($t.money)}</td>
+                        <td>{$t.czfx}%</td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+            </div>
+
+            {if $mypages}
+            <div class="fc-pages text-center">{$mypages}</div>
+            {/if}
+        </div>
+    </div>
+
+</div>
+
+
+{template "mfooter.html"}

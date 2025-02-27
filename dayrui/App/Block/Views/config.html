@@ -1,0 +1,21 @@
+{template "header.html"}
+
+<form action="" class="form-horizontal" method="post" name="myform" id="myform">
+    {$form}
+    <div class="form-body">
+        <div class="form-group">
+            <label class="col-md-2 control-label">{dr_lang('文件存储策略')}</label>
+            <div class="col-md-9">
+                <label><select class="form-control" name="data[file]">
+                    <option value="0"> {dr_lang('默认存储')} </option>
+                    {loop $remote $i $t}
+                    <option value="{$i}" {php echo ($i == $data['file'] ? 'selected' : '');}> {dr_lang($t['name'])} </option>
+                    {/loop}
+                </select></label>
+                <span class="help-block">资料中的文件存储位置选择</span>
+            </div>
+        </div>
+    </div>
+
+</form>
+{template "footer.html"}

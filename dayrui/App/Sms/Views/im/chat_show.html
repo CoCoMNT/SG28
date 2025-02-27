@@ -1,0 +1,64 @@
+<div class="chat-body">
+
+    <!-- Chat Header Start-->
+    <div class="chat-header">
+        <button onclick="dr_show_left()" class="btn btn-secondary btn-icon btn-minimal btn-sm text-muted d-xl-none" type="button">
+            <!-- Default :: Inline SVG -->
+            <svg class="hw-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+        </button>
+
+        <!-- Chat participant's Name -->
+        <div class="media chat-name align-items-center text-truncate">
+            <div class="avatar  d-none d-sm-inline-block mr-3">
+                <img src="{$to.avatar}">
+            </div>
+
+            <div class="media-body align-self-center ">
+                <h6 class="text-truncate mb-0">{$to.name}</h6>
+                <small class="text-muted"></small>
+            </div>
+        </div>
+
+    </div>
+    <!-- Chat Header End-->
+
+
+
+    <!-- Chat Content Start-->
+    <div class="chat-content p-2" id="messageBody">
+        <div class="container">
+
+            <!-- Message Day Start -->
+            <div class="message-day" id="messageMlist">
+
+
+            </div>
+            <!-- Message Day End -->
+
+        </div>
+
+        <!-- Scroll to finish -->
+        <div class="chat-finished" id="chat-finished"></div>
+    </div>
+    <!-- Chat Content End-->
+
+    <!-- Chat Footer Start-->
+    <div class="chat-footer">
+
+        <textarea class="form-control emojionearea-form-control" id="messageInput" rows="1" placeholder="发送消息..."></textarea>
+        <div class="btn btn-info btn-icon attachment rounded-circle text-light mb-1" onclick="UpladFile_jquery()" role="button">
+            <i  class="fa fa-photo"></i>
+            <input style="position: absolute;width: 100%;height: 100%;opacity: 0;" id="file" type="file" name="file"/>
+        </div>
+        <input id="file_value" type="hidden" name="img"/>
+        <div class="btn btn-primary btn-icon send-icon rounded-circle text-light mb-1" onclick="dr_submit_send('{$to.id}')" role="button">
+            <svg class="hw-24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+        </div>
+    </div>
+    <!-- Chat Footer End-->
+</div>
+

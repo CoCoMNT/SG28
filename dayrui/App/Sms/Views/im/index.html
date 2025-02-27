@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>{$meta_title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{dr_get_app_css('sms')}css/app.min.css">
+    <link href="{$THEME_PATH}assets/icon/css/icon.css?v={CMF_UPDATE_TIME}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">var is_mobile_cms = '{IS_MOBILE}';var web_dir = '{WEB_DIR}';</script>
+    <script src="{LANG_PATH}lang.js" type="text/javascript"></script>
+    <script src="{THEME_PATH}assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="{THEME_PATH}assets/js/cms.js" type="text/javascript"></script>
+</head>
+
+<body class="chats-tab-open">
+
+<div class="main-layout">
+
+
+    <!-- Sidebar Start -->
+    <aside class="sidebar">
+        <!-- Tab Content Start -->
+        <div class="tab-content">
+            <!-- Chat Tab Content Start -->
+            <div class="tab-pane active" id="chats-content">
+                <div class="d-flex flex-column h-100">
+                    <div class="hide-scrollbar h-100" id="chatContactsList">
+
+                        <!-- Chat Header Start -->
+                        <div class="sidebar-header sticky-top p-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <!-- Chat Tab Pane Title Start -->
+                                <h5 class="font-weight-semibold mb-0">私信</h5>
+                                <!-- Chat Tab Pane Title End -->
+                            </div>
+                        </div>
+                        <!-- Chat Header End -->
+
+                        <!-- Chat Contact List Start -->
+                        <ul class="contacts-list" id="chatContactTab" data-chat-list="">
+
+
+                        </ul>
+                        <!-- Chat Contact List End -->
+                    </div>
+                </div>
+            </div>
+            <!-- Chats Tab Content End -->
+
+
+            <!-- Friends Tab Content Start -->
+            <div class="tab-pane" id="friends-content">
+                <div class="d-flex flex-column h-100">
+                    <div class="hide-scrollbar" id="friendsList">
+
+
+                        <div class="sidebar-header sticky-top p-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="font-weight-semibold mb-0">联系人</h5>
+                            </div>
+                        </div>
+
+                        <!-- Friends Contact List Start -->
+                        <ul class="contacts-list" id="friendsTab">
+
+
+
+                        </ul>
+                        <!-- Friends Contact List End -->
+                    </div>
+                </div>
+            </div>
+            <!-- Friends Tab Content End -->
+
+
+        </div>
+        <!-- Tab Content End -->
+    </aside>
+    <!-- Sidebar End -->
+
+    <!-- Main Start -->
+    <main class="main" id="chat_main">
+
+        <!-- Chats Page Start -->
+        <div class="chats" id="chat_show">
+
+        </div>
+        <!-- Chats Page End -->
+
+
+
+
+
+    </main>
+    <!-- Main End -->
+
+
+    <div class="backdrop"></div>
+
+
+    <!-- All Modals End -->
+</div>
+<!-- Main Layout End -->
+
+
+<!-- Javascript Files -->
+<script src="{dr_get_app_css('sms')}js/bootstrap.bundle.min.js"></script>
+<script src="{dr_get_app_css('sms')}js/jquery.magnific-popup.min.js"></script>
+<script src="{dr_get_app_css('sms')}js/svg-inject.min.js"></script>
+<script src="{dr_get_app_css('sms')}js/modal-steps.min.js"></script>
+<script src="{dr_get_app_css('sms')}js/emojionearea.min.js"></script>
+<script src="{dr_get_app_css('sms')}js/app.js"></script>
+<audio src="{dr_get_app_css('sms')}new.mp3" style='display:none' id='dr_sms_audio'></audio>
+<script>
+    var dingshi = 1;
+    $(function () {
+        dr_chat_show('{$from_uid}');
+        dr_chat_list();
+        dingshi = setInterval('dr_chat_new()', 5000);
+    });
+
+    function dr_chat_list() {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "{WEB_DIR}index.php?s={APP_DIR}&c=api&m=my&uid={$from_uid}",
+            success: function(json) {
+                if (json.code) {
+                    $("#chatContactTab").html(json.msg);
+                }
+            },
+            error: function(HttpRequest, ajaxOptions, thrownError) {
+                dr_ajax_alert_error(HttpRequest, this, thrownError);
+            }
+        });
+    }
+
+    function dr_chat_new() {
+        $.ajax({type: "GET",dataType:"json", url: "{WEB_DIR}index.php?s={APP_DIR}&c=api&m=nums",
+            success: function(json) {
+                if (json.code == 1) {
+                    dr_chat_play();
+                }
+            }
+        });
+    }
+
+    function dr_show_left() {
+
+        $("#chat_main").removeClass("main-visible");
+    }
+
+    function dr_chat_play() {
+        document.getElementById('dr_sms_audio').play();
+    }
+    function dr_chat_show(uid) {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "{WEB_DIR}index.php?s={APP_DIR}&c=api&m=show&uid="+uid,
+            success: function(json) {
+                if (json.code) {
+                    $("#chat_show").html(json.msg);
+                    $("#chat_main").addClass("main-visible");
+                    $(".contacts-item").removeClass('active');
+                    $("#contacts-item-"+uid).addClass('active');
+                    if (uid) {
+                        dr_chat_msg(uid)
+                        clearInterval(dingshi);
+                        dingshi = setInterval(function(){
+                            dr_chat_msg(uid)
+                        }, 5000);
+                        document.querySelector('.chat-finished').scrollIntoView({
+                            block: 'end',               // "start" | "center" | "end" | "nearest",
+                            behavior: 'auto'          //"auto"  | "instant" | "smooth",
+                        });
+                    }
+                }
+            },
+            error: function(HttpRequest, ajaxOptions, thrownError) {
+                dr_ajax_alert_error(HttpRequest, this, thrownError);
+            }
+        });
+    }
+
+    function dr_chat_msg(uid) {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "{WEB_DIR}index.php?s={APP_DIR}&c=api&m=msg&uid="+uid,
+            success: function(json) {
+                if (json.code) {
+                    var arr = json.data;
+                    var is_end  = 0;
+                    var is_play  = 0;
+                    for(var i = 0; i < arr.length; i++) {
+                        if ($("#dr_row_msg_"+arr[i]['id']).length) {
+
+                        } else {
+                            var is_end  = 1;
+                            if (arr[i]['play']) {
+                                var is_play  = 1;
+                            }
+                            $("#messageMlist").append(arr[i]['msg']);
+                        }
+                    }
+
+                    if (is_end) {
+                        if (is_play) {
+                            dr_chat_play();
+                        }
+                        document.querySelector('.chat-finished').scrollIntoView({
+                            block: 'end',               // "start" | "center" | "end" | "nearest",
+                            behavior: 'auto'          //"auto"  | "instant" | "smooth",
+                        });
+                    }
+                    if (json.msg) {
+                        // 加载列表未读信息
+                        dr_chat_list();
+                        dr_chat_play();
+                    }
+                }
+            },
+            error: function(HttpRequest, ajaxOptions, thrownError) {
+                dr_ajax_alert_error(HttpRequest, this, thrownError);
+            }
+        });
+    }
+
+    function dr_submit_send(tuid) {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: {
+                {csrf_token()}: '{csrf_hash()}',
+                content: $("#messageInput").val(),
+                img: $("#file_value").val(),
+                url: top.window.location.href,
+                title: top.document.title,
+            },
+            url: "{WEB_DIR}index.php?s={APP_DIR}&c=api&m=send&uid="+tuid,
+            success: function(json) {
+                if (json.code) {
+                    $("#messageInput").val("");
+                    dr_chat_msg(tuid);
+                    dr_tips(1, json.msg);
+                } else {
+                    dr_tips(0, json.msg);
+                }
+            },
+            error: function(HttpRequest, ajaxOptions, thrownError) {
+                dr_ajax_alert_error(HttpRequest, this, thrownError);
+            }
+        });
+    }
+    function UpladFile_jquery() {
+        /*
+            1、先获取input标签
+            2、给input标签绑定change事件
+            3、把图片回显
+             */
+        //            1、先回去input标签
+        var $input = $("#file");
+        console.log($input)
+        //            2、给input标签绑定change事件
+        $input.on("change", function () {
+            //给input标签设置multiple属性，一次可以上传多个文件
+            //获取选择图片的个数
+            files = this.files;
+            //3、回显
+            $.each(files, function (key, value) {
+
+                var fr = new FileReader();
+                fr.onload = function () {
+                    var src = this.result;
+                    if (src.indexOf('data:image')>-1) {
+                        $("#file_value").val(this.result);
+                        dr_tips(1, '上传成功');
+                        var nr = $("#messageInput").val();
+                        if (nr.indexOf('[img]')>-1) {
+
+                        } else {
+                            $("#messageInput").append('[img]');
+                        }
+                        return;
+                    } else {
+                        dr_tips(0, '请上传图片文件');
+                    }
+                    console.log(this.result);
+                }
+                fr.readAsDataURL(value);
+            })
+
+        })
+
+    }
+</script>
+</body>
+
+</html>
