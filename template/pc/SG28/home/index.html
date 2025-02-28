@@ -1,293 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <meta charset="utf-8" />
-    <title>加拿大28游戏 - {$meta_title}</title>
-    <meta content="{$meta_keywords}" name="keywords" />
-    <meta content="{$meta_description}" name="description" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="{HOME_THEME_PATH}pc/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="{HOME_THEME_PATH}pc/css/style.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="{THEME_PATH}assets/icon/css/icon.css" rel="stylesheet" type="text/css" />
-    <!-- 系统懒人版js(所有自建模板引用) -->
-    <script type="text/javascript">var is_mobile_cms = '{IS_MOBILE}';var web_dir = '{WEB_DIR}';</script>
-    <script src="{LANG_PATH}lang.js" type="text/javascript"></script>
-    <script src="{THEME_PATH}assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-    <script src="{THEME_PATH}assets/js/cms.js" type="text/javascript"></script>
-    <!-- 系统懒人版js结束 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{SITE_NAME}</title>
+    {SITE_CSS}
+    <link rel="stylesheet" href="{THEME_PATH}SG28/LIB/bootstrap/css/bootstrap.min.css">
+    <style>
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .hero-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
+            color: white;
+        }
+        .feature-box {
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            background: white;
+        }
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 40px 0;
+            }
+        }
+    </style>
 </head>
-
-<body id="kt_app_body" data-kt-app-layout="light-header" data-kt-app-header-fixed="true" data-kt-app-toolbar-enabled="true" class="app-default">
-
-<!--begin::App-->
-<div class="d-flex flex-column flex-root app-root" id="kt_app_root">
-    <!--begin::Page-->
-    <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
-        <!--begin::Header-->
-        <div id="kt_app_header" class="app-header">
-            <!--begin::Header container-->
-            <div class="app-container container-xxl d-flex align-items-stretch justify-content-between" id="kt_app_header_container">
-                <!--begin::Logo-->
-                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
-                    <a href="/">
-                        <img alt="Logo" src="{SITE_LOGO}" class="h-50px app-sidebar-logo-default theme-light-show" />
-                    </a>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">加拿大28</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">预测大厅</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">历史记录</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="{MODULE_URL}member/login.html" class="btn btn-outline-light me-2">登录</a>
+                    <a href="{MODULE_URL}member/register.html" class="btn btn-primary">注册</a>
                 </div>
-                <!--end::Logo-->
-                <!--begin::Header wrapper-->
-                <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
-                    <!--begin::Menu wrapper-->
-                    <div class="app-header-menu app-header-mobile-drawer align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="app-header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="{default: 'append', lg: 'prepend'}" data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}">
-                        <!--begin::Menu-->
-                        <div class="menu menu-rounded menu-column menu-lg-row my-5 my-lg-0 align-items-stretch fw-semibold px-2 px-lg-0" id="kt_app_header_menu" data-kt-menu="true">
-                            <!--begin:Menu item-->
-                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                                <!--begin:Menu link-->
-                                <a href="/" class="menu-link">
-                                    <span class="menu-title fs-5">首页</span>
-                                </a>
-                                <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                                <!--begin:Menu link-->
-                                <a href="#" class="menu-link">
-                                    <span class="menu-title fs-5">加拿大28</span>
-                                </a>
-                                <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                                <!--begin:Menu link-->
-                                <a href="#" class="menu-link">
-                                    <span class="menu-title fs-5">游戏规则</span>
-                                </a>
-                                <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                                <!--begin:Menu link-->
-                                <a href="#" class="menu-link">
-                                    <span class="menu-title fs-5">历史开奖</span>
-                                </a>
-                                <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                                <!--begin:Menu link-->
-                                <a href="#" class="menu-link">
-                                    <span class="menu-title fs-5">在线客服</span>
-                                </a>
-                                <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                        </div>
-                        <!--end::Menu-->
-                    </div>
-                    <!--end::Menu wrapper-->
-
-                    <!--begin::Navbar-->
-                    <div class="app-navbar flex-shrink-0">
-                        <!--begin::Search-->
-                        <div class="app-navbar-item align-items-stretch ms-1 ms-md-3">
-                            <!--begin::Search-->
-                            <div id="kt_header_search" class="header-search d-flex align-items-stretch" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-menu-trigger="auto" data-kt-menu-overflow="false" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end">
-                                <!--begin::Search toggle-->
-                                <div class="d-flex align-items-center" data-kt-search-element="toggle" id="kt_header_search_toggle">
-                                    <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px">
-                                        <span class="svg-icon svg-icon-2 svg-icon-md-1">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
-                                                <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                                <!--end::Search toggle-->
-                                <!--begin::Menu-->
-                                <div data-kt-search-element="content" class="menu menu-sub menu-sub-dropdown p-7 w-325px w-md-375px">
-                                    <!--begin::Wrapper-->
-                                    <div data-kt-search-element="wrapper">
-                                        <!--begin::Form-->
-                                        <form data-kt-search-element="form" action="/index.php" class="w-100 position-relative mb-3" autocomplete="off">
-                                            <input type="hidden" name="s" value="api">
-                                            <input type="hidden" name="c" value="api">
-                                            <input type="hidden" name="m" value="search">
-                                            <input type="hidden" name="dir" value="news" >
-                                            <!--begin::Icon-->
-                                            <span class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 translate-middle-y ms-0">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
-                                                    <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
-                                                </svg>
-                                            </span>
-                                            <!--end::Icon-->
-                                            <!--begin::Input-->
-                                            <input type="text" class="search-input form-control form-control-flush ps-10" name="keyword" value="" placeholder="搜索..." data-kt-search-element="input" />
-                                            <!--end::Input-->
-                                        </form>
-                                        <!--end::Form-->
-                                    </div>
-                                    <!--end::Wrapper-->
-                                </div>
-                                <!--end::Menu-->
-                            </div>
-                            <!--end::Search-->
-                        </div>
-                        <!--end::Search-->
-
-                        <!--begin::用户登录按钮-->
-                        <div class="app-navbar-item ms-1 ms-md-3">
-                            <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px w-md-40px h-md-40px position-relative" id="kt_drawer_chat_toggle">
-                                <a href="{dr_member_url("login/index")}" class="btn btn-sm btn-primary">登录</a>
-                            </div>
-                        </div>
-                        <!--end::用户登录按钮-->
-                        
-                        <!--begin::用户注册按钮-->
-                        <div class="app-navbar-item ms-1 ms-md-3">
-                            <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px w-md-40px h-md-40px position-relative" id="kt_drawer_chat_toggle">
-                                <a href="{dr_member_url("register/index")}" class="btn btn-sm btn-success">注册</a>
-                            </div>
-                        </div>
-                        <!--end::用户注册按钮-->
-                    </div>
-                    <!--end::Navbar-->
-                </div>
-                <!--end::Header wrapper-->
             </div>
-            <!--end::Header container-->
         </div>
-        <!--end::Header-->
+    </nav>
 
-        <!--begin::Wrapper-->
-        <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
-            <!--begin::Main-->
-            <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
-                <!--begin::Content wrapper-->
-                <div class="d-flex flex-column flex-column-fluid">
-                    <!--begin::Content-->
-                    <div id="kt_app_content" class="app-content flex-column-fluid">
-                        <!--begin::Content container-->
-                        <div id="kt_app_content_container" class="app-container container-xxl">
-                            
-                            <!-- 主要内容区域 -->
-                            <div class="row g-5 g-xl-10 mb-5 mb-xl-10 mt-5">
-                                <!-- 游戏区域 -->
-                                <div class="col-xl-8">
-                                    <div class="card">
-                                        <div class="card-header border-0 pt-6">
-                                            <h3 class="card-title align-items-start flex-column">
-                                                <span class="card-label fw-bold fs-3 mb-1">加拿大28游戏</span>
-                                                <span class="text-muted mt-1 fw-semibold fs-7">最公平、最公正的在线游戏平台</span>
-                                            </h3>
-                                        </div>
-                                        <div class="card-body py-3">
-                                            <!-- 游戏界面 -->
-                                            <div class="row mb-6">
-                                                <div class="col-lg-12 mb-5">
-                                                    <div class="bg-light-primary rounded p-5 mb-5">
-                                                        <!-- 游戏开奖结果展示 -->
-                                                        <div class="text-center mb-5">
-                                                            <h4 class="fs-1 fw-bold mb-3">第 <span class="text-primary">20250227001</span> 期</h4>
-                                                            <div class="d-flex justify-content-center">
-                                                                <div class="d-flex flex-column align-items-center mx-3">
-                                                                    <div class="symbol symbol-50px symbol-circle mb-2 bg-primary">
-                                                                        <span class="fs-2 fw-bold text-white">8</span>
-                                                                    </div>
-                                                                    <span class="text-muted">第一球</span>
-                                                                </div>
-                                                                <div class="d-flex flex-column align-items-center mx-3">
-                                                                    <div class="symbol symbol-50px symbol-circle mb-2 bg-success">
-                                                                        <span class="fs-2 fw-bold text-white">12</span>
-                                                                    </div>
-                                                                    <span class="text-muted">第二球</span>
-                                                                </div>
-                                                                <div class="d-flex flex-column align-items-center mx-3">
-                                                                    <div class="symbol symbol-50px symbol-circle mb-2 bg-danger">
-                                                                        <span class="fs-2 fw-bold text-white">7</span>
-                                                                    </div>
-                                                                    <span class="text-muted">第三球</span>
-                                                                </div>
-                                                                <div class="d-flex flex-column align-items-center mx-3">
-                                                                    <div class="symbol symbol-50px symbol-circle mb-2 bg-info">
-                                                                        <span class="fs-2 fw-bold text-white">27</span>
-                                                                    </div>
-                                                                    <span class="text-muted">总和</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <!-- 倒计时 -->
-                                                        <div class="text-center mb-5">
-                                                            <h5 class="fs-3 fw-semibold mb-3">距离下期开奖</h5>
-                                                            <div class="d-flex justify-content-center">
-                                                                <div class="border border-gray-300 bg-white rounded p-3 mx-2">
-                                                                    <span class="fs-1 fw-bold">05</span>
-                                                                </div>
-                                                                <div class="d-flex align-items-center mx-1">
-                                                                    <span class="fs-1 fw-bold">:</span>
-                                                                </div>
-                                                                <div class="border border-gray-300 bg-white rounded p-3 mx-2">
-                                                                    <span class="fs-1 fw-bold">32</span>
-                                                                </div>
-                                                                <div class="d-flex align-items-center mx-1">
-                                                                    <span class="fs-1 fw-bold">:</span>
-                                                                </div>
-                                                                <div class="border border-gray-300 bg-white rounded p-3 mx-2">
-                                                                    <span class="fs-1 fw-bold">18</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <!-- 投注区域 -->
-                                                    <div class="card shadow-sm mb-5">
-                                                        <div class="card-header">
-                                                            <h3 class="card-title">选择投注类型</h3>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-md-6 mb-3">
-                                                                    <div class="form-check form-check-custom form-check-solid mb-3">
-                                                                        <input class="form-check-input" type="radio" name="bet_type" id="bet_type_big" checked="checked" />
-                                                                        <label class="form-check-label fw-semibold" for="bet_type_big">大（14-27）</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-custom form-check-solid mb-3">
-                                                                        <input class="form-check-input" type="radio" name="bet_type" id="bet_type_small" />
-                                                                        <label class="form-check-label fw-semibold" for="bet_type_small">小（0-13）</label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6 mb-3">
-                                                                    <div class="form-check form-check-custom form-check-solid mb-3">
-                                                                        <input class="form-check-input" type="radio" name="bet_type" id="bet_type_odd" />
-                                                                        <label class="form-check-label fw-semibold" for="bet_type_odd">单（总和为奇数）</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-custom form-check-solid mb-3">
-                                                                        <input class="form-check-input" type="radio" name="bet_type" id="bet_type_even" />
-                                                                        <label class="form-check-label fw-semibold" for="bet_type_even">双（总和为偶数）</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            
-                                                            <div class="separator my-5"></div>
-                                                            
-                                                            <div class="row mb-5">
-                                                                <label class="col-md-3 col-form-label fw-bold fs-6">投注金额：</label>
-                                                                <div class="col-md-9">
-                                                                    <div class="input-group">
-                                                                        <input type="number" class="form-control" placeholder="请输入投注金额" />
-                                                                        <span class="input-group-text">元</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            
-                                                            <div class="text-center">
-                                                                <button type="button" class="btn btn-lg btn-primary">立即投注</button>
-                                                            </div>
-                                                        </div>
-                                                    </div
+    <!-- 主要内容区 -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 mb-4">加拿大28精准预测</h1>
+            <p class="lead mb-4">采用先进算法，为您提供最准确的预测分析</p>
+        </div>
+    </section>
+
+    <!-- 特点介绍 -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <h3>精准预测</h3>
+                        <p>运用大数据分析，提供高准确率的预测结果</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <h3>实时更新</h3>
+                        <p>数据实时更新，让您掌握最新预测信息</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <h3>专业分析</h3>
+                        <p>专业团队提供详细的数据分析和走势图</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container text-center">
+            <p class="mb-0">© 2024 加拿大28预测网. All rights reserved.</p>
+        </div>
+    </footer>
+
+        {SITE_JS}
+    <script src="{THEME_PATH}SG28/LIB/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
