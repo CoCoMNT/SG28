@@ -24,12 +24,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {category module=share pid=0} 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">首页</a>
+                        <a class="nav-link {if IS_SHARE && $catid && dr_in_array($catid, $t.catids)} active {/if}"  href="{$t.url}">{$t.name}</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">历史记录</a>
-                    </li>
+                    {/category}
                 </ul>
                 <div class="d-flex align-items-center">
                     <a href="{MODULE_URL}member/login.html" class="btn btn-outline-light me-2">登录</a>
@@ -178,8 +177,10 @@
     </script>
     <style>
         /* 全局字体设置 */
-        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
+        @font-face {
+            font-family: 'ZCOOL KuaiLe';
+            src: url('{THEME_PATH}SG28/fonts/ZCOOL_KuaiLe.ttf') format('truetype');
+        }
         
         body {
             font-family: 'ZCOOL KuaiLe', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
