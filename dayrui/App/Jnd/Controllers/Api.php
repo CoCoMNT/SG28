@@ -29,52 +29,64 @@ class Api extends Common
             $N4[] = $data[$i]['n4'];
         }
         var_dump($data);
-        echo $this->calculateText("N1+N2+N3+N4", $N1, $N2, $N3, $N4, $issue);
+        echo $this->calculateText("N1+N2+N3+N4+取首(N4)+取尾(N4)", $N1, $N2, $N3, $N4, $issue);
     }
 
     private function calculateText(string $text, array $N1, array $N2, array $N3, array $N4, array $issue): string
     {
         $resultText = $text;
 
-        // Mapping variables N1 to N48 with appropriate values from the arrays
-        $mappings = [];
-        for ($i = 0; $i < count($N1); $i++) {
-            $mappings['N' . ($i * 4 + 1)] = $N1[$i] ?? 0;
-            $mappings['N' . ($i * 4 + 2)] = $N2[$i] ?? 0;
-            $mappings['N' . ($i * 4 + 3)] = $N3[$i] ?? 0;
-            $mappings['N' . ($i * 4 + 4)] = $N4[$i] ?? 0;
+        // 创建数字到数组索引的映射
+        $arrayMap = [];
+        for ($i = 0; $i < 48; $i++) {
+            $arrayIndex = floor($i / 4);  // 确定在哪个索引位置
+            $arrayNum = ($i % 4) + 1;     // 确定是哪个数组(N1-N4)
+            
+            $value = match($arrayNum) {
+                1 => $N1[$arrayIndex] ?? 0,
+                2 => $N2[$arrayIndex] ?? 0,
+                3 => $N3[$arrayIndex] ?? 0,
+                4 => $N4[$arrayIndex] ?? 0,
+                default => 0
+            };
+            
+            $arrayMap['N' . ($i + 1)] = $value;
         }
 
-        // Define a helper function for "取首()", hypothetical implementation returning the first character
-        $takeFirst = function ($value) {
-            return is_string($value) && strlen($value) > 0 ? $value[0] : $value;
-        };
-
-        // Replace the "取首()" in the text
-        $resultText = preg_replace_callback('/取首\((N\d+)\)/', function ($matches) use ($mappings, $takeFirst) {
-            $key = $matches[1];
-            return isset($mappings[$key]) ? $takeFirst($mappings[$key]) : 0;
+        // 处理取首函数
+        $resultText = preg_replace_callback('/取首\((N\d+)\)/', function($matches) use ($arrayMap) {
+            $value = $arrayMap[$matches[1]] ?? 0;
+            return '$this->getFirstChar("' . $value . '")';
         }, $resultText);
 
-        // Perform the calculations in the text
-        $resultText = preg_replace_callback('/(N\d+)/', function ($matches) use ($mappings) {
-            $key = $matches[1];
-            return $mappings[$key] ?? 0;
+        // 处理取尾函数
+        $resultText = preg_replace_callback('/取尾\((N\d+)\)/', function($matches) use ($arrayMap) {
+            $value = $arrayMap[$matches[1]] ?? 0;
+            return '$this->getLastChar("' . $value . '")';
         }, $resultText);
 
-        // Evaluate the final calculated string
+        // 替换所有N数字为实际值
+        $resultText = preg_replace_callback('/N(\d+)/', function($matches) use ($arrayMap) {
+            return $arrayMap['N' . $matches[1]] ?? 0;
+        }, $resultText);
+
+        // 执行计算
         try {
-            $result = eval('return ' . $resultText . ';');
-        } catch (Throwable) {
-            $result = 'Error in calculation';
+            return eval('return ' . $resultText . ';');
+        } catch (Throwable $e) {
+            return 'Error in calculation: ' . $e->getMessage();
         }
-
-        return $result ?: 'Error in calculation';
     }
     private function SearchCanada(): void
     {
         $sql='SELECT * FROM `dr_canada_data` ORDER BY `issue` DESC LIMIT 0,3000';
         $canada = Service::M()->db->query($sql)->getResultArray();
         Service::L('cache')->set_data("canada_data", $canada,86400);
+    }
+    private function getFirstChar($text) {
+        return mb_substr($text, 0, 1);
+    }
+    private function getLastChar($text) {
+        return mb_substr($text, -1);
     }
 }
