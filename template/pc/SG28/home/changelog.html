@@ -67,8 +67,8 @@
                     {/category}
                 </ul>
                 <div class="d-flex align-items-center">
-                    <a href="{MODULE_URL}member/login.html" class="btn btn-outline-light me-2">登录</a>
-                    <a href="{MODULE_URL}member/register.html" class="btn btn-primary">注册</a>
+                    <a href="{dr_member_url("login/index")}" class="btn btn-outline-light me-2">登录</a>
+                    <a href="{dr_member_url("register/index")}" class="btn btn-primary">注册</a>
                 </div>
             </div>
         </div>
@@ -146,8 +146,8 @@
     </footer>
 
     <!-- AOS动画库 -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="{THEME_PATH}SG28/LIB/AOS/aos.css" rel="stylesheet">
+    <script src="{THEME_PATH}SG28/LIB/AOS/aos.js"></script>
     <script>
         AOS.init({
             duration: 800,
