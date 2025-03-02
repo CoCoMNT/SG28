@@ -22,6 +22,11 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            {if $member}
+            <div class="d-flex align-items-center mx-3 d-lg-none">
+                <img src="{$member.avatar}" alt="{$member.username}" width="32" height="32" class="rounded-circle">
+            </div>
+            {/if}
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {category module=share pid=0} 
@@ -30,10 +35,27 @@
                     </li>
                     {/category}
                 </ul>
+                {if !$member}
                 <div class="d-flex align-items-center">
                     <a href="{MODULE_URL}member/login.html" class="btn btn-outline-light me-2">登录</a>
                     <a href="{MODULE_URL}member/register.html" class="btn btn-primary">注册</a>
                 </div>
+                {else}
+                <div class="d-flex align-items-center">
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{$member.avatar}" alt="{$member.username}" width="32" height="32" class="rounded-circle me-2">
+                            <span class="text-light">{$member.username}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="{MODULE_URL}member/"><i class="fas fa-user me-2"></i>个人中心</a></li>
+                            <li><a class="dropdown-item" href="{MODULE_URL}member/account/"><i class="fas fa-cog me-2"></i>账号设置</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{MODULE_URL}member/login/out.html"><i class="fas fa-sign-out-alt me-2"></i>退出登录</a></li>
+                        </ul>
+                    </div>
+                </div>
+                {/if}
             </div>
         </div>
     </nav>
@@ -187,6 +209,19 @@
             line-height: 1.8;
             color: #2c3e50;
             letter-spacing: 0.5px;
+        }
+
+        /* 导航栏样式优化 */
+        .navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1030;
+            transition: all 0.3s ease;
+        }
+
+        .navbar .dropdown-menu {
+            z-index: 1031;
         }
     
         /* 主要内容区样式优化 */
